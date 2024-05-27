@@ -37,6 +37,14 @@ int main(){
             printf("-");
             break;
 
+            case '*':
+            printf("-");
+            break;
+
+            case '/':
+            printf("-");
+            break;
+
             default:
             break;
         }
