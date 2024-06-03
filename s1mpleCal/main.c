@@ -3,20 +3,58 @@
 #include <stdlib.h>
 
 #include "input.h"
+#include "basic_calculation.h"
+
+//#define UI_Printf(...) printf()
+
+typedef struct{
+    char mode_name[256];
+    void (*launch) (void);
+} sc_handle_t;
+
+sc_handle_t sc_handle[3] = {
+    {
+        .mode_name = "BASIC CALCULATION",
+        .launch = BASIC_CALCULATION_Launch
+    },
+    {
+        .mode_name = "GCD",
+        .launch = NULL
+    },
+    {
+        .mode_name = "Exit",
+        .launch = NULL
+    }
+
+};
+
+const int number_of_mode = sizeof(sc_handle) / sizeof(sc_handle[0]);
 
 int main() {
-    while(1) {
+    //while(1) {
         printf("\nSIMPLE CALCULATOR");
 
         // Printing the menu options
-        printf("\n1. Basic Calculation");
-        printf("\n2. GCD");
-        printf("\n3. Exit");
+        for (int i = 0; i < number_of_mode; i++){
+            printf("\n%d. %s", i + 1, sc_handle[i].mode_name);
+        }
 
         // Getting the mode option from the user using a custom function
         uint8_t option = INPUT_GetMode("Select mode [1-3]", "Mode selected");
 
-        if (option == 1) {
+        sc_handle[option - 1].launch();
+
+        /*switch (option){
+            case 1:
+                BASIC_CALCULATION_Launch();
+                break;
+
+            default:
+                break;    
+        }*/
+
+
+        /*if (option == 1) {
             // Getting inputs for basic calculation
             uint32_t first_number = INPUT_GetNumber("Enter first number", "Number received");
             char operator = INPUT_GetOperator("Enter operator [+,-,*,/]", "Operator received");
@@ -64,10 +102,10 @@ int main() {
             printf("\nExit program!");
             // Exiting the program
             exit(0);
-        }
-    }
+        }*/
+    //}
 
- 
 
-    return 0;
+
+    //return 0;
 }
