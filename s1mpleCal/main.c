@@ -5,7 +5,7 @@
 #include "input.h"
 #include "basic_calculation.h"
 
-//#define UI_Printf(...) printf()
+#define UI_Print(...) printf(__VA_ARGS__)
 
 typedef struct{
     char mode_name[256];
